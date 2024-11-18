@@ -1,18 +1,16 @@
-#include <Arduino.h>
 #include "WasteSensor.h"
+
+
 #include "Light.h"
 
-
-WasteSensor::WasteSensor(int input, int output, int pinLed1, int pinLed2)
-{
+WasteSensor::WasteSensor(int input, int output, int pinLed1, int pinLed2) {
     this->input = input;
     this->output = output;
     this->pinLed1 = pinLed1;
     this->pinLed2 = pinLed2;
 }
 
-void WasteSensor::init(int period)
-{
+void WasteSensor::init(int period) {
     Task::init(period);
     led1 = new Led(pinLed1);
     led2 = new Led(pinLed2);
@@ -23,10 +21,9 @@ void WasteSensor::init(int period)
     pinMode(input, INPUT);
 }
 
-void WasteSensor::tick()
-{
-    if(state==NOTFULL){
-        if(isFull(input, output)){
+void WasteSensor::tick() {
+    if (state == NOTFULL) {
+        if (isFull()) {
             state = FULL;
             led1->switchOff();
             led2->switchOn();
@@ -34,7 +31,7 @@ void WasteSensor::tick()
     }
 }
 
-bool isFull(int input, int output){
+bool WasteSensor::isFull() {
     long duration;
     float distance;
 
@@ -49,7 +46,7 @@ bool isFull(int input, int output){
     duration = pulseIn(input, HIGH);
 
     // Calcolo della distanza
-    distance = (duration * 0.034) / 2; // 0.034 cm/µs è la velocità del suono
+    distance = (duration * 0.034) / 2;  // 0.034 cm/µs è la velocità del suono
 
     return distance < 1;
 }

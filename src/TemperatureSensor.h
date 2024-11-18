@@ -7,6 +7,7 @@
 
 class TemperatureSensor : public Task
 {
+    private:
 
     int pin;
     int pinLed1;

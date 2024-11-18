@@ -1,13 +1,12 @@
 #ifndef __BLINKTASK__
 #define __BLINKTASK__
 
+#include <Arduino.h>
+#include "Led.h"
 #include "Task.h"
 
-#include "Led.h"
-
-class WasteSensor : public Task
-{
-
+class WasteSensor : public Task {
+   private:
     int input;
     int output;
     int pinLed1;
@@ -15,13 +14,11 @@ class WasteSensor : public Task
     Light *led1;
     Light *led2;
 
-    enum
-    {
-        FULL,
-        NOTFULL
-    } state;
+    enum { FULL, NOTFULL } state;
 
-public:
+    bool isFull();
+
+   public:
     WasteSensor(int pin, int output, int pinLed1, int pinLed2);
     void init(int period);
     void tick();
