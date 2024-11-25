@@ -1,21 +1,18 @@
-#ifndef LCD_H
-#define LCD_H
+#ifndef DOOR_H
+#define DOOR_H
 
 #include <Arduino.h>
 
 class Lcd {
    private:
-    static Lcd* instance;
-    static LiquidCrystal_I2C* lcd;
-
-    Lcd();
+    enum { OPENING, CLOSING } state;
 
    public:
     static Lcd* getInstance();
 
-    static void print(const String& message, uint8_t col = 0, uint8_t row = 0);
+    static void open();
 
-    static void clear();
+    static void close();
 };
 
-#endif  // LCD_H
+#endif 
