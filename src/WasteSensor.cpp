@@ -3,6 +3,8 @@
 
 #include "Light.h"
 
+#include "Lcd.h"
+
 WasteSensor::WasteSensor(int input, int output, int pinLed1, int pinLed2) {
     this->input = input;
     this->output = output;
@@ -27,6 +29,7 @@ void WasteSensor::tick() {
             state = FULL;
             led1->switchOff();
             led2->switchOn();
+            Lcd::print("CONTAINER FULL");
         }
     }
 }

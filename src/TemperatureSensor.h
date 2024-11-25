@@ -33,6 +33,7 @@ public:
     void init(int period);
     void tick();
     float temperature();
+    void restore();
 };
 
 #endif

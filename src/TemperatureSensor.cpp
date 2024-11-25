@@ -3,6 +3,7 @@
 #include <Arduino.h>
 
 #include "Light.h"
+#include "Lcd.h"
 
 TemperatureSensor::TemperatureSensor(int pin, int pinLed1, int pinLed2,
                                      int pinButton, float maxTemp,
@@ -34,6 +35,7 @@ void TemperatureSensor::tick() {
             state = PROBLEM;
             led1->switchOff();
             led2->switchOn();
+            Lcd::print("PROBLEM DETECTED");
         }
     }
 }
@@ -44,4 +46,9 @@ float TemperatureSensor::temperature() {
 
 bool TemperatureSensor::isHot() {
     return this->temperature() > maxTemp;
+}
+
+void TemperatureSensor::restore()
+{
+    state = OK;
 }
