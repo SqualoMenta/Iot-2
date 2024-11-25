@@ -29,11 +29,31 @@ void UserSensor::tick()
     {
         if (isFar())
         {
-            this->timeZero = millis();
+            if (timeZero == 0)
+            {
+                this->timeZero = millis();
+            }
+
+            // Controlla se è passato abbastanza tempo
             if (millis() - this->timeZero > tSleep)
             {
                 state = AFK;
+                timeZero = 0;
+                led1->switchOn();
+                led2->switchOff();
             }
+        }
+        else
+        {
+            // Se l'utente torna, resetta il timer
+            timeZero = 0;
+        }
+    }
+    else if (state == AFK)
+    {
+        if (!isFar())
+        {
+            state = ACTIVE;
         }
     }
 }
