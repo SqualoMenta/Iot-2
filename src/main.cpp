@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include <LiquidCrystal_I2C.h>
+#include "Lcd.h"
 #include "Timer.h"
 #include "Scheduler.h"
 
@@ -8,8 +8,7 @@ LiquidCrystal_I2C lcd(0x27, 20, 4);
 
 void setup() {
   Serial.begin(9600);
-  lcd.init();
-  lcd.backlight();
+  Lcd::getInstance();
 }
 
 void loop() {
