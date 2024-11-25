@@ -1,16 +1,22 @@
-#ifndef __LCD__
-#define __LCD__
+#ifndef LCD_H
+#define LCD_H
 
+#include <Arduino.h>
 #include <LiquidCrystal_I2C.h>
 
-class Lcd{
-   public:
+class Lcd {
+   private:
+    static Lcd* instance;
+    static LiquidCrystal_I2C* lcd;
+
     Lcd();
-    void print(String msg);
 
-    private:
-     LiquidCrystal_I2C lcd;
+   public:
+    static Lcd* getInstance();
 
+    static void print(const String& message, uint8_t col = 0, uint8_t row = 0);
+
+    static void clear();
 };
 
-#endif
+#endif  // LCD_H
