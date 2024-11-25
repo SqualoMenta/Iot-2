@@ -26,10 +26,13 @@ class TemperatureSensor : public Task
         PROBLEM
     } state;
 
+    bool isHot();
+
 public:
     TemperatureSensor(int pin, int pinLed1, int pinLed2, int pinButton, float maxTemp, float maxTempTime);
     void init(int period);
     void tick();
+    float temperature();
 };
 
 #endif
