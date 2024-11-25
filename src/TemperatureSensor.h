@@ -2,7 +2,6 @@
 #define __BLINKTASK__
 
 #include "Task.h"
-
 #include "Led.h"
 
 class TemperatureSensor : public Task

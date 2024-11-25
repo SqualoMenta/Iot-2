@@ -2,17 +2,25 @@
 #define DOOR_H
 
 #include <Arduino.h>
+#include <Servo.h>
 
-class Lcd {
+#include "Task.h"
+
+class Door : public Task {
    private:
-    enum { OPENING, CLOSING } state;
+    Servo motor;
+    enum { OPENING, CLOSING, OFF } state;
+    const int maxTime = 10000;
+    int t0;
 
    public:
-    static Lcd* getInstance();
-
-    static void open();
-
-    static void close();
+    void init(int period);
+    void open();
+    void close();
+    void externalOn();
+    void shutDown();
+    Door(int pin);
+    void tick();
 };
 
-#endif 
+#endif

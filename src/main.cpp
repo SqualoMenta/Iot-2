@@ -8,7 +8,7 @@ LiquidCrystal_I2C lcd(0x27, 20, 4);
 
 void setup() {
   Serial.begin(9600);
-  Lcd::getInstance();
+  Lcd::init();
 }
 
 void loop() {
