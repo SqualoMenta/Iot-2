@@ -3,14 +3,16 @@
 
 #include <Arduino.h>
 #include <Servo.h>
+
 #include "Task.h"
 
 class Door : public Task {
    private:
     Servo motor;
-    enum { OPENING, CLOSING, OFF } state;
-    const int maxTime = 10000;
+    enum { OPENING, CLOSING, CLOSED, NOMSSG, OFF } state;
+    const long T1 = 10000;
     unsigned long t0;
+    const long T2 = 3000;
 
    public:
     void init(int period);

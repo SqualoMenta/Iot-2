@@ -44,7 +44,13 @@ void Lcd::free() {
     }
 }
 
-bool Lcd::isOccupied(){
+void Lcd::defaultMssg() {
+    Lcd::free();
+    lcd->setCursor(0, 0);
+    lcd->print("PRESS OPEN TO ENTER WASTE");
+}
+
+bool Lcd::isOccupied() {
     if (instance->occupied) {
         if (millis() - instance->time > instance->T0) {
             Lcd::free();

@@ -2,12 +2,12 @@
 #define __BLINKTASK__
 
 #include <Arduino.h>
+
 #include "Led.h"
 #include "Task.h"
 
-class UserSensor : public Task
-{
-private:
+class UserSensor : public Task {
+   private:
     int output;
     int pinLed1;
     int pinLed2;
@@ -16,13 +16,9 @@ private:
     float tSleep;
     unsigned long timeZero;
 
-    enum
-    {
-        ACTIVE,
-        AFK
-    } state;
+    enum { ACTIVE, AFK } state;
 
-public:
+   public:
     UserSensor(int output, int pinLed1, int pinLed2, float tSleep);
     void init(int period);
     void tick();

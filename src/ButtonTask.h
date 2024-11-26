@@ -1,17 +1,17 @@
 #ifndef __BUTTONTASK__
 #define __BUTTONTASK__
 
-#include "Task.h"
 #include "Button.h"
 #include "Door.h"
+#include "Task.h"
 
 class ButtonTask : public Task {
-private:
+   private:
     Button* openButton;
     Button* closeButton;
     Door* door;
 
-public:
+   public:
     ButtonTask(Button* openButton, Button* closeButton, Door* door);
     void tick();
 };

@@ -1,4 +1,5 @@
 #include "Door.h"
+
 #include "Lcd.h"
 
 Door::Door(int pin) {
@@ -14,7 +15,7 @@ void Door::open() {
 }
 
 void Door::close() {
-    if (state != OFF) {
+    if (state == OPENING) {
         state = CLOSING;
     }
 }
@@ -25,12 +26,11 @@ void Door::shutDown() {
 }
 
 void Door::tick() {
-    if (millis() - this->t0 > this->maxTime) {
-        state = CLOSING;
-    }
-    
     switch (state) {
         case OPENING:
+            if (millis() - this->t0 > this->T1) {
+                state = CLOSING;
+            }
             motor.write(90);
             Lcd::print("PRESS CLOSE WHEN DONE");
             break;
@@ -39,6 +39,15 @@ void Door::tick() {
             Lcd::free();
             Lcd::printForTime("WASTE RECEIVED", 3000);
             motor.write(0);
+            state = CLOSED;
+            this->t0 = millis();
+            break;
+
+        case CLOSED:
+            if (millis() - this->t0 > this->T2) {
+                Lcd::defaultMssg();
+            }
+
             break;
     }
 }

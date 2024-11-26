@@ -1,9 +1,10 @@
 #include <Arduino.h>
+
+#include "ButtonImpl.h"
+#include "ButtonTask.h"
+#include "Door.h"
 #include "Lcd.h"
 #include "Scheduler.h"
-#include "ButtonImpl.h"
-#include "Door.h"
-#include "ButtonTask.h"
 
 // Oggetti globali
 Scheduler sched;
@@ -18,18 +19,16 @@ void setup() {
     Serial.begin(9600);
     Lcd::init();
 
-    //bottoni
-    //door = new Door(9);
-    //openButton = new ButtonImpl(2);
-    //closeButton = new ButtonImpl(3);
+    // bottoni
+    // door = new Door(9);
+    // openButton = new ButtonImpl(2);
+    // closeButton = new ButtonImpl(3);
 
-    //buttonTask = new ButtonTask(openButton, closeButton, door);
+    // buttonTask = new ButtonTask(openButton, closeButton, door);
 
-    //sched.addTask(buttonTask);
+    // sched.addTask(buttonTask);
 
-    //door->shutDown();
+    // door->shutDown();
 }
 
-void loop() {
-    sched.schedule();
-}
+void loop() { sched.schedule(); }

@@ -36,6 +36,7 @@ void TemperatureSensor::tick() {
             state = PROBLEM;
             led1->switchOff();
             led2->switchOn();
+            Lcd::free();
             Lcd::print("PROBLEM DETECTED");
             door->shutDown();
         }

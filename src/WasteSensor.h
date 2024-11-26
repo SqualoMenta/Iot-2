@@ -2,9 +2,10 @@
 #define __BLINKTASK__
 
 #include <Arduino.h>
+
+#include "Door.h"
 #include "Led.h"
 #include "Task.h"
-#include "Door.h"
 
 class WasteSensor : public Task {
    private:
@@ -12,8 +13,8 @@ class WasteSensor : public Task {
     int output;
     int pinLed1;
     int pinLed2;
-    Light *led1;
-    Light *led2;
+    Light* led1;
+    Light* led2;
     Door* door;
 
     enum { FULL, NOTFULL } state;

@@ -3,15 +3,13 @@
 
 #include "Button.h"
 
-class ButtonImpl: public Button {
- 
-public: 
-  ButtonImpl(int pin);
-  bool isPressed();
+class ButtonImpl : public Button {
+   public:
+    ButtonImpl(int pin);
+    bool isPressed();
 
-private:
-  int pin;
-
+   private:
+    int pin;
 };
 
 #endif
