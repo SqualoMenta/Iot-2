@@ -9,7 +9,7 @@
 class Door : public Task {
    private:
     Servo motor;
-    enum { OPENING, CLOSING, CLOSED, NOMESSAG, OFF } state;
+    enum { OPENING, CLOSING, CLOSED, NOMESSAGE, OFF } state;
     const long T1 = 10000;
     unsigned long t0;
     const long T2 = 3000;

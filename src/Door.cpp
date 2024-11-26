@@ -46,11 +46,11 @@ void Door::tick() {
         case CLOSED:
             if (millis() - this->t0 > this->T2) {
                 Lcd::defaultMssg();
-                state = NOMESSAG;
+                state = NOMESSAGE;
             }
 
             break;
     }
 }
 
-void Door::externalOn() { state = CLOSING; }
+void Door::externalOn() { state = NOMESSAGE; }
