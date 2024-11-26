@@ -1,10 +1,6 @@
 #include "WasteSensor.h"
 
-#include "Lcd.h"
-#include "Light.h"
-
-WasteSensor::WasteSensor(int input, int output, int pinLed1, int pinLed2,
-                         Door* door) {
+WasteSensor::WasteSensor(int input, int output, int pinLed1, int pinLed2) {
     this->input = input;
     this->output = output;
     this->pinLed1 = pinLed1;
@@ -30,7 +26,7 @@ void WasteSensor::tick() {
             led2->switchOn();
             Lcd::free();
             Lcd::print("CONTAINER FULL");
-            door->shutDown();
+            SystemCommand::shutDown();
         }
     }
 }
@@ -53,4 +49,9 @@ bool WasteSensor::isFull() {
     distance = (duration * 0.034) / 2;  // 0.034 cm/µs è la velocità del suono
 
     return distance < 1;
+}
+
+void WasteSensor::clean() {
+    Lcd::defaultMssg();
+    state = NOTFULL;
 }

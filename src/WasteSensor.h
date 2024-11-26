@@ -1,10 +1,13 @@
-#ifndef __BLINKTASK__
-#define __BLINKTASK__
+#ifndef __WASTETASK__
+#define __WASATETASK__
 
 #include <Arduino.h>
 
 #include "Door.h"
 #include "Led.h"
+#include "Light.h"
+#include "SystemCommand.h" 
+#include "Lcd.h"
 #include "Task.h"
 
 class WasteSensor : public Task {
@@ -15,16 +18,16 @@ class WasteSensor : public Task {
     int pinLed2;
     Light* led1;
     Light* led2;
-    Door* door;
 
     enum { FULL, NOTFULL } state;
 
     bool isFull();
 
    public:
-    WasteSensor(int pin, int output, int pinLed1, int pinLed2, Door* door);
+    WasteSensor(int pin, int output, int pinLed1, int pinLed2);
     void init(int period);
     void tick();
+    void clean();
 };
 
 #endif

@@ -1,15 +1,14 @@
 #include "ButtonTask.h"
 
-ButtonTask::ButtonTask(Button* openButton, Button* closeButton, Door* door) {
+ButtonTask::ButtonTask(Button* openButton, Button* closeButton) {
     this->openButton = openButton;
     this->closeButton = closeButton;
-    this->door = door;
 }
 
 void ButtonTask::tick() {
     if (openButton->isPressed()) {
-        door->open();
+        SystemCommand::open();
     } else if (closeButton->isPressed()) {
-        door->close();
+        SystemCommand::close();
     }
 }

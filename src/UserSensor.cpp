@@ -3,8 +3,6 @@
 #include <Arduino.h>
 #include <avr/sleep.h>
 
-#include "Lcd.h"
-#include "Light.h"
 
 UserSensor* UserSensor::instance = nullptr;
 

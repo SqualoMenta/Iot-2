@@ -1,7 +1,5 @@
 #include "Scheduler.h"
 
-#include "Timer.h"
-
 volatile bool timerFlag;
 Timer timer;
 

@@ -2,18 +2,17 @@
 
 #include <Arduino.h>
 
-#include "Light.h"
 #include "Lcd.h"
+#include "Light.h"
 
 TemperatureSensor::TemperatureSensor(int pin, int pinLed1, int pinLed2,
                                      int pinButton, float maxTemp,
-                                     float maxTempTime, Door* door) {
+                                     float maxTempTime) {
     this->pin = pin;
     this->pinLed1 = pinLed1;
     this->pinLed2 = pinLed2;
     this->pinButton = pinButton;
     this->maxTemp = maxTemp;
-    this->door = door;
 }
 
 void TemperatureSensor::init(int period) {
@@ -38,7 +37,7 @@ void TemperatureSensor::tick() {
             led2->switchOn();
             Lcd::free();
             Lcd::print("PROBLEM DETECTED");
-            door->shutDown();
+            SystemCommand::shutDown();
         }
     }
 }
@@ -47,11 +46,9 @@ float TemperatureSensor::temperature() {
     return analogRead(pin) * (5.0 / 1023.0) * 100;
 }
 
-bool TemperatureSensor::isHot() {
-    return this->temperature() > maxTemp;
-}
+bool TemperatureSensor::isHot() { return this->temperature() > maxTemp; }
 
-void TemperatureSensor::restore()
-{
+void TemperatureSensor::restore() {
+    Lcd::defaultMssg();
     state = OK;
 }

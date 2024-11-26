@@ -1,7 +1,5 @@
 #include "Door.h"
 
-#include "Lcd.h"
-
 Door::Door(int pin) {
     this->motor.attach(pin);
     this->state = CLOSING;

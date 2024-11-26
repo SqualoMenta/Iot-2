@@ -1,8 +1,8 @@
-#ifndef __BLINKTASK__
-#define __BLINKTASK__
+#ifndef __TEMPERATURETASK__
+#define __TEMPERATURETASK__
 
-#include "Door.h"
 #include "Led.h"
+#include "SystemCommand.h"
 #include "Task.h"
 
 class TemperatureSensor : public Task {
@@ -16,7 +16,6 @@ class TemperatureSensor : public Task {
     Light* led1;
     Light* led2;
     unsigned long timeZero;
-    Door* door;
 
     enum { OK, HOT, PROBLEM } state;
 
@@ -24,7 +23,7 @@ class TemperatureSensor : public Task {
 
    public:
     TemperatureSensor(int pin, int pinLed1, int pinLed2, int pinButton,
-                      float maxTemp, float maxTempTime, Door* door);
+                      float maxTemp, float maxTempTime);
     void init(int period);
     void tick();
     float temperature();

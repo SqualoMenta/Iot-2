@@ -1,9 +1,11 @@
-#ifndef __BLINKTASK__
-#define __BLINKTASK__
+#ifndef __USERTASK__
+#define __USERTASK__
 
 #include <Arduino.h>
 
+#include "Lcd.h"
 #include "Led.h"
+#include "Light.h"
 #include "Task.h"
 
 class UserSensor : public Task {

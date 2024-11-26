@@ -1,9 +1,10 @@
-#ifndef DOOR_H
-#define DOOR_H
+#ifndef __DOORTASK__
+#define __DOORTASK__
 
 #include <Arduino.h>
 #include <Servo.h>
 
+#include "Lcd.h"
 #include "Task.h"
 
 class Door : public Task {
