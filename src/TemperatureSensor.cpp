@@ -7,12 +7,13 @@
 
 TemperatureSensor::TemperatureSensor(int pin, int pinLed1, int pinLed2,
                                      int pinButton, float maxTemp,
-                                     float maxTempTime) {
+                                     float maxTempTime, Door* door) {
     this->pin = pin;
     this->pinLed1 = pinLed1;
     this->pinLed2 = pinLed2;
     this->pinButton = pinButton;
     this->maxTemp = maxTemp;
+    this->door = door;
 }
 
 void TemperatureSensor::init(int period) {
@@ -36,6 +37,7 @@ void TemperatureSensor::tick() {
             led1->switchOff();
             led2->switchOn();
             Lcd::print("PROBLEM DETECTED");
+            door->shutDown();
         }
     }
 }

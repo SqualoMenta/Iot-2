@@ -3,6 +3,7 @@
 
 #include "Task.h"
 #include "Led.h"
+#include "Door.h"
 
 class TemperatureSensor : public Task
 {
@@ -17,6 +18,7 @@ class TemperatureSensor : public Task
     Light *led1;
     Light *led2;
     unsigned long timeZero;
+    Door* door;
 
     enum
     {
@@ -28,7 +30,7 @@ class TemperatureSensor : public Task
     bool isHot();
 
 public:
-    TemperatureSensor(int pin, int pinLed1, int pinLed2, int pinButton, float maxTemp, float maxTempTime);
+    TemperatureSensor(int pin, int pinLed1, int pinLed2, int pinButton, float maxTemp, float maxTempTime, Door* door);
     void init(int period);
     void tick();
     float temperature();

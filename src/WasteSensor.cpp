@@ -5,7 +5,7 @@
 
 #include "Lcd.h"
 
-WasteSensor::WasteSensor(int input, int output, int pinLed1, int pinLed2) {
+WasteSensor::WasteSensor(int input, int output, int pinLed1, int pinLed2, Door* door) {
     this->input = input;
     this->output = output;
     this->pinLed1 = pinLed1;
@@ -30,6 +30,7 @@ void WasteSensor::tick() {
             led1->switchOff();
             led2->switchOn();
             Lcd::print("CONTAINER FULL");
+            door->shutDown();
         }
     }
 }
