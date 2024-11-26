@@ -1,15 +1,19 @@
 #include "UserSensor.h"
 
 #include <Arduino.h>
+#include <avr/sleep.h>
 
 #include "Lcd.h"
 #include "Light.h"
+
+UserSensor* UserSensor::instance = nullptr;
 
 UserSensor::UserSensor(int output, int pinLed1, int pinLed2, float tSleep) {
     this->output = output;
     this->pinLed1 = pinLed1;
     this->pinLed2 = pinLed2;
     this->tSleep = tSleep;
+    instance = this;
 }
 
 void UserSensor::init(int period) {
@@ -20,30 +24,42 @@ void UserSensor::init(int period) {
     led1->switchOn();
     led2->switchOff();
     pinMode(output, INPUT);
+    attachInterrupt(digitalPinToInterrupt(output), UserSensor::onInterrupt,
+                    HIGH);
 }
 
 void UserSensor::tick() {
-    if (state == ACTIVE) {
-        if (isFar()) {
-            if (timeZero == 0) {
+    switch (state) {
+        case ACTIVE:
+            if (isFar()) {
                 this->timeZero = millis();
+                state = FAR;
             }
-            // Controlla se è passato abbastanza tempo
+            break;
+
+        case AFK:
+            set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+            sleep_enable();
+            sleep_mode();
+            /* The program will continue from here. */
+            /* First thing to do is disable sleep. */
+            sleep_disable();
+            break;
+
+        case FAR:
             if (millis() - this->timeZero > tSleep) {
                 state = AFK;
-                timeZero = 0;
                 led1->switchOn();
                 led2->switchOff();
             }
-        } else {
-            // Se l'utente torna, resetta il timer
-            timeZero = 0;
-        }
-    } else if (state == AFK) {
-        if (!isFar()) {
-            state = ACTIVE;
-        }
+            break;
     }
 }
 
 bool UserSensor::isFar() { return digitalRead(output) == LOW; }
+
+void UserSensor::onInterrupt() {
+    if (digitalRead(instance -> output) == HIGH) {
+        instance -> state = ACTIVE;
+    }
+}
