@@ -46,6 +46,7 @@ void Door::tick() {
         case CLOSED:
             if (millis() - this->t0 > this->T2) {
                 Lcd::defaultMssg();
+                state = NOMESSAG;
             }
 
             break;
