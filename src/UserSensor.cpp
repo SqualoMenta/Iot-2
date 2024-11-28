@@ -3,24 +3,19 @@
 #include <Arduino.h>
 #include <avr/sleep.h>
 
+#include "SystemCommand.h"
 
 UserSensor* UserSensor::instance = nullptr;
 
-UserSensor::UserSensor(int output, int pinLed1, int pinLed2, float tSleep) {
+UserSensor::UserSensor(int output, float tSleep) {
     this->output = output;
-    this->pinLed1 = pinLed1;
-    this->pinLed2 = pinLed2;
-    this->tSleep = tSleep;
+    this->timer.setupPeriod(tSleep);
     instance = this;
 }
 
 void UserSensor::init(int period) {
     Task::init(period);
-    led1 = new Led(pinLed1);
-    led2 = new Led(pinLed2);
     state = ACTIVE;
-    led1->switchOn();
-    led2->switchOff();
     pinMode(output, INPUT);
     attachInterrupt(digitalPinToInterrupt(output), UserSensor::onInterrupt,
                     HIGH);
@@ -30,7 +25,7 @@ void UserSensor::tick() {
     switch (state) {
         case ACTIVE:
             if (isFar()) {
-                this->timeZero = millis();
+                this->timer.resetTimer();
                 state = FAR;
             }
             break;
@@ -45,10 +40,14 @@ void UserSensor::tick() {
             break;
 
         case FAR:
-            if (millis() - this->timeZero > tSleep) {
-                state = AFK;
-                led1->switchOn();
-                led2->switchOff();
+            if (isFar()) {
+                if (this->timer.isPeriodPassed()) {
+                    state = AFK;
+                    SystemCommand::led1Off();
+                    SystemCommand::led2Off();
+                }
+            } else {
+                state = ACTIVE;
             }
             break;
     }
@@ -57,7 +56,9 @@ void UserSensor::tick() {
 bool UserSensor::isFar() { return digitalRead(output) == LOW; }
 
 void UserSensor::onInterrupt() {
-    if (digitalRead(instance -> output) == HIGH) {
-        instance -> state = ACTIVE;
+    if (digitalRead(instance->output) == HIGH) {
+        instance->state = ACTIVE;
+        SystemCommand::led1On();
+        SystemCommand::led2Off();
     }
 }

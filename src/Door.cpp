@@ -1,16 +1,20 @@
 #include "Door.h"
+#include "Lcd.h"
+#include "MotorImpl.h"
 
-Door::Door(Motor* motor, unsigned long T1, unsigned long T2) {
+#define WASTETIME 3000
+
+Door::Door(int pin, unsigned long T1, unsigned long T2) {
     this->state = CLOSING;
-    this->T1 = T1;
-    this->T2 = T2;
-    this->motor = motor;
+    this->timer1.setupPeriod(T1);
+    this->timer2.setupPeriod(T2);
+    this->motor = new MotorImpl(pin);
 }
 
 void Door::open() {
     if (state != OFF) {
         state = OPENING;
-        this->t0 = millis();
+        this->timer1.resetTimer();
     }
 }
 
@@ -34,21 +38,21 @@ void Door::tick() {
             break;
 
         case OPEN:
-            if (millis() - this->t0 > this->T1){
+            if (this->timer1.isPeriodPassed()){
                 state = CLOSING;
             }
             break;
 
         case CLOSING:
             Lcd::free();
-            Lcd::printForTime("WASTE RECEIVED", 3000);
+            Lcd::printForTime("WASTE RECEIVED", WASTETIME);
             motor->close();
             state = CLOSED;
-            this->t0 = millis();
+            this->timer2.resetTimer();
             break;
 
         case CLOSED:
-            if (millis() - this->t0 > this->T2) {
+            if (this->timer2.isPeriodPassed()) {
                 Lcd::defaultMssg();
                 state = NOMESSAGE;
             }

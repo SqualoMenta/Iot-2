@@ -1,12 +1,13 @@
 #include "Lcd.h"
 
+#include <Arduino.h>
+
 Lcd* Lcd::instance = nullptr;
-LiquidCrystal_I2C* Lcd::lcd = nullptr;
 
 Lcd::Lcd() {
-    lcd = new LiquidCrystal_I2C(0x27, 20, 4);
-    lcd->init();
-    lcd->backlight();
+    lcd = LiquidCrystal_I2C(0x27, 20, 4);
+    lcd.init();
+    lcd.backlight();
 }
 
 void Lcd::init() {
@@ -17,37 +18,37 @@ void Lcd::init() {
 }
 
 void Lcd::print(const String& message, uint8_t col, uint8_t row) {
-    if (lcd && !instance->occupied) {
+    if (instance!=nullptr && !instance->occupied) {
         instance->occupied = true;
-        lcd->clear();
-        lcd->setCursor(col, row);
-        lcd->print(message);
+        lcd.clear();
+        lcd.setCursor(col, row);
+        lcd.print(message);
     }
 }
 
 void Lcd::printForTime(const String& message, const int T0, uint8_t col,
                        uint8_t row) {
-    if (lcd && !instance->occupied) {
+    if (instance != nullptr && !instance->occupied) {
         instance->occupied = true;
         instance->time = millis();
         instance->T0 = T0;
-        lcd->clear();
-        lcd->setCursor(col, row);
-        lcd->print(message);
+        lcd.clear();
+        lcd.setCursor(col, row);
+        lcd.print(message);
     }
 }
 
 void Lcd::free() {
-    if (lcd) {
+    if (instance != nullptr) {
         instance->occupied = false;
-        lcd->clear();
+        lcd.clear();
     }
 }
 
 void Lcd::defaultMssg() {
     Lcd::free();
-    lcd->setCursor(0, 0);
-    lcd->print("PRESS OPEN TO ENTER WASTE");
+    lcd.setCursor(0, 0);
+    lcd.print("PRESS OPEN TO ENTER WASTE");
 }
 
 bool Lcd::isOccupied() {
@@ -60,6 +61,6 @@ bool Lcd::isOccupied() {
 }
 
 void Lcd::simplePrint(const String& message, uint8_t col, uint8_t row) {
-    lcd->setCursor(col, row);
-    lcd->print(message);
+    lcd.setCursor(col, row);
+    lcd.print(message);
 }

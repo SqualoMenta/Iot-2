@@ -1,8 +1,9 @@
 #include "ButtonTask.h"
+#include "ButtonImpl.h"
 
-ButtonTask::ButtonTask(Button* openButton, Button* closeButton) {
-    this->openButton = openButton;
-    this->closeButton = closeButton;
+ButtonTask::ButtonTask(int openButtonPin, int closeButtonPin) {
+    this->openButton = new ButtonImpl(openButtonPin);
+    this->closeButton = new ButtonImpl(closeButtonPin);
 }
 
 void ButtonTask::tick() {

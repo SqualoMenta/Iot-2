@@ -11,7 +11,7 @@ class ButtonTask : public Task {
     Button* closeButton;
 
    public:
-    ButtonTask(Button* openButton, Button* closeButton);
+    ButtonTask(int openButtonPin, int closeButtonPin);
     void tick();
 };
 

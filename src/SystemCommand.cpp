@@ -1,21 +1,26 @@
 #include "SystemCommand.h"
 
+#include "Led.h"
+
 SystemCommand* SystemCommand::instance = nullptr;
-TemperatureSensor* SystemCommand::tempSens = nullptr;
-WasteSensor* SystemCommand::wasteSens = nullptr;
+TemperatureTask* SystemCommand::tempTask = nullptr;
+WasteTask* SystemCommand::wasteTask = nullptr;
 Door* SystemCommand::door = nullptr;
 
 SystemCommand::SystemCommand() {}
 
-void SystemCommand::init(TemperatureSensor* tempSens, WasteSensor* WasteSensor,
-                         Door* door, Light* led1, Light* led2) {
+void SystemCommand::init(TemperatureTask* tempTask, WasteTask* WasteTask,
+                         Door* door, int pinLed1, int pinLed2, double maxDist,
+                         double minDist) {
     if (instance == nullptr) {
         instance = new SystemCommand();
-        instance->tempSens = tempSens;
-        instance->wasteSens = wasteSens;
+        instance->tempTask = tempTask;
+        instance->wasteTask = wasteTask;
         instance->door = door;
-        instance->led1 = led1;
-        instance->led2 = led2;
+        instance->led1 = new Led(pinLed1);
+        instance->led2 = new Led(pinLed2);
+        instance->maxDist = maxDist;
+        instance->minDist = minDist;
     }
 }
 
@@ -45,14 +50,31 @@ void SystemCommand::externalOn() {
 
 void SystemCommand::restore() {
     if (instance != nullptr) {
-        instance->tempSens->restore();
+        instance->tempTask->restore();
     }
 }
 
 void SystemCommand::clean() {
     if (instance != nullptr) {
-        instance->wasteSens->clean();
+        instance->wasteTask->clean();
     }
 }
 
-void SystemCommand::
+void SystemCommand::led1On() { instance->led1->switchOn(); }
+
+void SystemCommand::led1Off() { instance->led1->switchOff(); }
+
+void SystemCommand::led2On() { instance->led2->switchOn(); }
+
+void SystemCommand::led2Off() { instance->led2->switchOff(); }
+
+float SystemCommand::temperature() { return tempTask->temperature(); }
+
+int SystemCommand::fullness() {
+    double distance = wasteTask->distance();
+    if (distance > maxDist) {
+        return 0;
+    } else {
+        return ((maxDist - distance) / (maxDist - minDist)) * 100;
+    }
+}

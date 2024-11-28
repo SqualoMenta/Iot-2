@@ -1,34 +1,57 @@
 #include <Arduino.h>
 
-#include "ButtonImpl.h"
 #include "ButtonTask.h"
 #include "Door.h"
 #include "Lcd.h"
 #include "Scheduler.h"
+#include "SystemCommand.h"
+#include "TemperatureTask.h"
+#include "UserSensor.h"
 
-// Oggetti globali
+const int LED1PIN = 13;
+const int LED2PIN = 12;
+const int MOTORPIN = 9;
+const int WASTESENSORPIN = 7;
+const int MOVEMENTSENSORPIN = 10;
+const int TEMPSENS = 0;
+const int OPENBUTTON = 6;
+const int CLOSEBUTTON = 5;
+const int HUMANREFLEX = 160;
+
 Scheduler sched;
-LiquidCrystal_I2C lcd(0x27, 20, 4);
-
-Door* door;
-Button* openButton;
-Button* closeButton;
-ButtonTask* buttonTask;
 
 void setup() {
     Serial.begin(9600);
     Lcd::init();
+    TemperatureTask temperatureTask = TemperatureTask(TEMPSENS);
+    Door door = Door(MOTORPIN);
+    WasteTask waste = WasteTask(WASTESENSORPIN);
+    UserSensor pir = UserSensor(MOVEMENTSENSORPIN);
+    ButtonTask button = ButtonTask(OPENBUTTON, CLOSEBUTTON);
 
-    // bottoni
-    // door = new Door(9);
-    // openButton = new ButtonImpl(2);
-    // closeButton = new ButtonImpl(3);
+    temperatureTask.init(400);
+    door.init(HUMANREFLEX);
 
-    // buttonTask = new ButtonTask(openButton, closeButton, door);
+    // very heavy on the program but in order to fill half a centimeter of a
+    // glass with a diameter of 6 cm with a fountain you need about 0.3 seconds
+    waste.init(200);
 
-    // sched.addTask(buttonTask);
+    pir.init(HUMANREFLEX);
+    button.init(HUMANREFLEX);
 
-    // door->shutDown();
+    SystemCommand::init(&temperatureTask, &waste, &door, LED1PIN, LED2PIN);
+
+    sched = Scheduler();
+    sched.init(40);
+
+    sched.addTask(&door);
+    sched.addTask(&button);
+    sched.addTask(&pir);
+    sched.addTask(&temperatureTask);
+    sched.addTask(&waste);
+
+    SystemCommand::led1On();
+    SystemCommand::led1Off();
 }
 
 void loop() { sched.schedule(); }

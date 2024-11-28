@@ -2,30 +2,40 @@
 #define __COMMANDSYS__
 
 #include "Door.h"
-#include "TemperatureSensor.h"
-#include "WasteSensor.h"
+#include "Light.h"
+#include "TemperatureTask.h"
+#include "WasteTask.h"
 
-class SystemCommand
-{
-private:
+class SystemCommand {
+   private:
     static Door *door;
-    static TemperatureSensor *tempSens;
-    static WasteSensor *wasteSens;
-    static SystemCommand *instance;
+    static TemperatureTask *tempTask;
+    static WasteTask *wasteTask;
     static Light *led1;
     static Light *led2;
+    static SystemCommand *instance;
+    static double maxDist;
+    static double minDist;
 
     SystemCommand();
 
-public:
-    static void init(TemperatureSensor *tempSens, WasteSensor *WasteSensor,
-                     Door *door, Light *led1, Light *led2);
+   public:
+    static void init(TemperatureTask *tempTask, WasteTask *WasteTask,
+                     Door *door, int pinLed1, int pinLed2, double maxDist = 10,
+                     double minDist = 1);
     static void close();
     static void open();
     static void shutDown();
     static void externalOn();
     static void restore();
     static void clean();
+    static void led1On();
+    static void led2On();
+    static void led1Off();
+    static void led2Off();
+    static void wasteLevel();
+    static float temperature();
+    static int fullness();
 };
 
 #endif

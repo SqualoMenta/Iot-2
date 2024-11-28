@@ -1,33 +1,10 @@
-#ifndef __WASTETASK__
-#define __WASATETASK__
+#ifndef __WASTESENS__
+#define __WASTESENS__
 
-#include <Arduino.h>
-
-#include "Door.h"
-#include "Led.h"
-#include "Light.h"
-#include "SystemCommand.h" 
-#include "Lcd.h"
-#include "Task.h"
-
-class WasteSensor : public Task {
-   private:
-    int input;
-    int output;
-    int pinLed1;
-    int pinLed2;
-    Light* led1;
-    Light* led2;
-
-    enum { FULL, NOTFULL } state;
-
-    bool isFull();
-
+class WasteSensor {
    public:
-    WasteSensor(int pin, int output, int pinLed1, int pinLed2);
-    void init(int period);
-    void tick();
-    void clean();
+    virtual double lastDistance();
+    virtual double newDistance();  // This is a very long method
 };
 
 #endif

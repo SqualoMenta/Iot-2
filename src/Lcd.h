@@ -1,15 +1,12 @@
-#ifndef LCD_H
-#define LCD_H
+#ifndef __LCD__
+#define __LCD__
 
-#include <Arduino.h>
 #include <LiquidCrystal_I2C.h>
-
-#include "Task.h"
 
 class Lcd {
    private:
     static Lcd* instance;
-    static LiquidCrystal_I2C* lcd;
+    static LiquidCrystal_I2C lcd;
     static int time;
     static int T0;
     static bool occupied;
@@ -28,4 +25,4 @@ class Lcd {
     static void defaultMssg();
 };
 
-#endif  // LCD_H
+#endif
