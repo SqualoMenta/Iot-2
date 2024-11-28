@@ -1,8 +1,10 @@
 #include "Door.h"
 
-Door::Door(int pin) {
-    this->motor.attach(pin);
+Door::Door(Motor* motor, unsigned long T1, unsigned long T2) {
     this->state = CLOSING;
+    this->T1 = T1;
+    this->T2 = T2;
+    this->motor = motor;
 }
 
 void Door::open() {
@@ -19,24 +21,28 @@ void Door::close() {
 }
 
 void Door::shutDown() {
-    motor.write(0);
+    motor->close();
     state = OFF;
 }
 
 void Door::tick() {
     switch (state) {
         case OPENING:
-            if (millis() - this->t0 > this->T1) {
+            motor->open();
+            state = OPEN;
+            Lcd::print("PRESS CLOSE WHEN DONE");
+            break;
+
+        case OPEN:
+            if (millis() - this->t0 > this->T1){
                 state = CLOSING;
             }
-            motor.write(90);
-            Lcd::print("PRESS CLOSE WHEN DONE");
             break;
 
         case CLOSING:
             Lcd::free();
             Lcd::printForTime("WASTE RECEIVED", 3000);
-            motor.write(0);
+            motor->close();
             state = CLOSED;
             this->t0 = millis();
             break;

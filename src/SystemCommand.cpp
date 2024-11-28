@@ -8,12 +8,14 @@ Door* SystemCommand::door = nullptr;
 SystemCommand::SystemCommand() {}
 
 void SystemCommand::init(TemperatureSensor* tempSens, WasteSensor* WasteSensor,
-                         Door* door) {
+                         Door* door, Light* led1, Light* led2) {
     if (instance == nullptr) {
         instance = new SystemCommand();
         instance->tempSens = tempSens;
         instance->wasteSens = wasteSens;
         instance->door = door;
+        instance->led1 = led1;
+        instance->led2 = led2;
     }
 }
 
@@ -52,3 +54,5 @@ void SystemCommand::clean() {
         instance->wasteSens->clean();
     }
 }
+
+void SystemCommand::

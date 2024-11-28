@@ -2,27 +2,36 @@
 #define __DOORTASK__
 
 #include <Arduino.h>
-#include <Servo.h>
 
+#include "Motor.h"
 #include "Lcd.h"
 #include "Task.h"
 
-class Door : public Task {
-   private:
-    Servo motor;
-    enum { OPENING, CLOSING, CLOSED, NOMESSAGE, OFF } state;
-    const long T1 = 10000;
+class Door : public Task
+{
+private:
+    Motor* motor;
+    enum
+    {
+        OPENING,
+        OPEN,
+        CLOSING,
+        CLOSED,
+        NOMESSAGE,
+        OFF
+    } state;
+    unsigned long T1;
     unsigned long t0;
-    const long T2 = 3000;
+    unsigned long T2;
 
-   public:
+public:
     void init(int period);
-    void open();
-    void close();
-    void externalOn();
-    void shutDown();
-    Door(int pin);
+    Door(Motor* motor, unsigned long T1 = 10000, unsigned long T2 = 3000);
     void tick();
+    void Door::open();
+    void Door::close();
+    void Door::shutDown();
+    void Door::externalOn();
 };
 
 #endif
