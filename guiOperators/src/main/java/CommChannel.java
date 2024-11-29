@@ -1,5 +1,3 @@
-package java;
-
 /**
  * Simple interface for an async msg communication channel
  * @author aricci

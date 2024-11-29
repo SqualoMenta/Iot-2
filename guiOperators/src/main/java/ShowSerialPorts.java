@@ -1,7 +1,3 @@
-package java;
-
-import jssc.*;
-
 public class ShowSerialPorts {
 
 	public static void main(String[] args) {

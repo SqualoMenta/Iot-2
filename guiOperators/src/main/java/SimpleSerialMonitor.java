@@ -1,8 +1,3 @@
-package java;
-
-/**
- *
- */
 public class SimpleSerialMonitor  {
 
 	public static void main(String[] args) throws Exception {
