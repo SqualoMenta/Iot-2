@@ -26,7 +26,6 @@ class SystemCommand {
     static void close();
     static void open();
     static void shutDown();
-    static void externalOn();
     static void restore();
     static void clean();
     static void led1On();

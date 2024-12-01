@@ -42,20 +42,16 @@ void SystemCommand::shutDown() {
     }
 }
 
-void SystemCommand::externalOn() {
-    if (instance != nullptr) {
-        instance->door->externalOn();
-    }
-}
-
 void SystemCommand::restore() {
     if (instance != nullptr) {
+        instance->door->externalOn();
         instance->tempTask->restore();
     }
 }
 
 void SystemCommand::clean() {
     if (instance != nullptr) {
+        instance->door->externalOn();
         instance->wasteTask->clean();
     }
 }

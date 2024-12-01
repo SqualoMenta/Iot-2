@@ -2,7 +2,9 @@
 
 #include "ButtonTask.h"
 #include "Door.h"
+#include "InputTask.h"
 #include "Lcd.h"
+#include "OutputTask.h"
 #include "Scheduler.h"
 #include "SystemCommand.h"
 #include "TemperatureTask.h"
@@ -22,14 +24,19 @@ Scheduler sched;
 
 void setup() {
     Serial.begin(9600);
+    Serial.setTimeout(20);
     Lcd::init();
     TemperatureTask temperatureTask = TemperatureTask(TEMPSENS);
     Door door = Door(MOTORPIN);
     WasteTask waste = WasteTask(WASTESENSORPIN);
     UserSensor pir = UserSensor(MOVEMENTSENSORPIN);
     ButtonTask button = ButtonTask(OPENBUTTON, CLOSEBUTTON);
+    InputTask input = InputTask();
+    OutputTask output = OutputTask();
 
     temperatureTask.init(400);
+    input.init(HUMANREFLEX);
+    output.init(1000);  // the gui updates every second
     door.init(HUMANREFLEX);
 
     // very heavy on the program but in order to fill half a centimeter of a
@@ -49,6 +56,8 @@ void setup() {
     sched.addTask(&pir);
     sched.addTask(&temperatureTask);
     sched.addTask(&waste);
+    sched.addTask(&output);
+    sched.addTask(&input);
 
     SystemCommand::led1On();
     SystemCommand::led1Off();
