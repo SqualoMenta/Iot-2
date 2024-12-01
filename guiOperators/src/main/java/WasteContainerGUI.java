@@ -16,12 +16,15 @@ public class WasteContainerGUI {
     private JLabel wasteLevelLabel;
     private JLabel temperatureLabel;
     private JTextArea statusArea;
-    private SerialCommChannel channel;
+    private WasteContainerController controller;
 
-    public WasteContainerGUI(SerialCommChannel channel) {
-        this.channel = channel;
+    public WasteContainerGUI() {
         initGUI();
         startDataListener();
+    }
+
+    public void addController(WasteContainerController controller){
+        this.controller = controller;
     }
 
     private void initGUI() {
@@ -62,7 +65,7 @@ public class WasteContainerGUI {
 
     private void sendCommand(String command) {
         try {
-            channel.sendMsg(command);
+            controller.sendMsg(command);
             statusArea.append("Sent command: " + command + "\n");
         } catch (Exception ex) {
             statusArea.append("Error sending command: " + ex.getMessage() + "\n");
@@ -95,18 +98,5 @@ public class WasteContainerGUI {
                 JOptionPane.showMessageDialog(frame, "Alarm detected!", "Warning", JOptionPane.WARNING_MESSAGE);
             }
         });
-    }
-
-    public static void main(String[] args) {
-        if (args.length < 1) {
-            System.out.println("Usage: java WasteContainerGUI <COM_PORT>");
-            System.exit(1);
-        }
-        try {
-            SerialCommChannel channel = new SerialCommChannel(args[0], 9600);
-            new WasteContainerGUI(channel);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
     }
 }
