@@ -13,12 +13,18 @@ public class WasteContainerController  {
 	
 	}
 
-    setUpTemp(String temp){
-        SwingUtilities.invokeLater(view.setUpTemp());
+	public void sendMsg(String command) {
+		channel.sendMsg(command);
+	}
+
+    public void setUpTemp(String temp){
+        SwingUtilities.invokeLater(view.setUpTemp(temp));
     }
 	
 
-    setUpFullness(String fullness){
-        SwingUtilities.invokeLater(view.setUpFullness());
+    public void setUpFullness(String fullness){
+        SwingUtilities.invokeLater(view.setUpFullness(fullness));
     }
+
+	
 }

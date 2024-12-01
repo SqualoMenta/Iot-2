@@ -99,4 +99,12 @@ public class WasteContainerGUI {
             }
         });
     }
+
+    public Runnable setUpTemp(String temp) {
+        temperatureLabel.setText("Temperature: " + temp);
+    }
+
+    public Runnable setUpFullness(String fullness) {
+        wasteLevelLabel.setText("Waste Level: "+ fullness);
+    }
 }

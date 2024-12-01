@@ -28,8 +28,8 @@ public class MonitoringAgent extends Thread {
                             
                             controller.setUpTemp(arg);
 							
-							String[] elems = args.split(":");
-							if (elems.length >= 3) {
+							String[] elems = arg.split(":");
+							/*if (elems.length >= 3) {
 								int stateCode = Integer.parseInt(elems[0]);
 								int numWashes = Integer.parseInt(elems[1]);
 								double temp = Double.parseDouble(elems[2]);
@@ -45,7 +45,7 @@ public class MonitoringAgent extends Thread {
 									inMaintenance = false;
 									
 								}
-							}
+							}*/
 						} catch (Exception ex) {
 							ex.printStackTrace();
 							System.err.println("Error in msg: " + cmd);

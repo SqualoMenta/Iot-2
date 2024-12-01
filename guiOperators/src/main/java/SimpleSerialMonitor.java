@@ -14,7 +14,7 @@ public class SimpleSerialMonitor {
                 view = WasteContainerGUI();
             });
             WasteContainerGUI monitor = new WasteContainerGUI();
-            CommChannel monitor = new SerialCommChannel(comPortName, 9600);
+            CommChannel monitor1 = new SerialCommChannel(comPortName, 9600);
             new WasteContainerGUI(monitor);
         }
     }
