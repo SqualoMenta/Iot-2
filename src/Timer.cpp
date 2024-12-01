@@ -20,3 +20,7 @@ unsigned long Timer::deltaOrZero() {
     long delta = this->period - (millis() - this->t0);
     return delta > 0 ? delta : 0;
 }
+
+void Timer::resetTimer(){
+    t0 = millis();
+}

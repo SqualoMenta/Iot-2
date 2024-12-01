@@ -9,7 +9,6 @@ class Timer {
     unsigned long deltaOrZero();
 
    public:
-    Timer();
     /* period in ms */
     void setupPeriod(int period);
     void waitForNextTick();

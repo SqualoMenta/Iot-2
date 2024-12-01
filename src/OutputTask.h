@@ -9,8 +9,6 @@ class OutputTask : public Task {
     Logger log;
 
    public:
-    OutputTask();
-    void init(int period);
     void tick();
 };
 

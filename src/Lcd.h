@@ -2,13 +2,13 @@
 #define __LCD__
 
 #include <LiquidCrystal_I2C.h>
+#include "Timer.h"
 
 class Lcd {
    private:
     static Lcd* instance;
     static LiquidCrystal_I2C lcd;
-    static int time;
-    static int T0;
+    static Timer timer;
     static bool occupied;
 
     Lcd();

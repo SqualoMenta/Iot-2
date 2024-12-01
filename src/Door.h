@@ -13,7 +13,6 @@ class Door : public Task {
     Timer timer2;
 
    public:
-    void init(int period);
     Door(int pin, unsigned long T1 = 10000, unsigned long T2 = 3000);
     void tick();
     void Door::open();

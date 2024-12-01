@@ -10,8 +10,6 @@ class InputTask : public Task {
     String input;
 
    public:
-    InputTask();
-    void init(int period);
     void tick();
 };
 

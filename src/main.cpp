@@ -35,6 +35,8 @@ void setup() {
     InputTask input = InputTask();
     OutputTask output = OutputTask();
 
+    SystemCommand::init(&temperatureTask, &waste, &door, LED1PIN, LED2PIN);
+
     temperatureTask.init(400);
     input.init(HUMANREFLEX);
     output.init(1000);  // the gui updates every second
@@ -46,8 +48,6 @@ void setup() {
 
     pir.init(HUMANREFLEX);
     button.init(HUMANREFLEX);
-
-    SystemCommand::init(&temperatureTask, &waste, &door, LED1PIN, LED2PIN);
 
     sched = Scheduler();
     sched.init(40);
@@ -62,6 +62,7 @@ void setup() {
 
     SystemCommand::led1On();
     SystemCommand::led1Off();
+    Lcd::defaultMssg();
 }
 
 void loop() { sched.schedule(); }

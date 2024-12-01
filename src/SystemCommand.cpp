@@ -6,6 +6,10 @@ SystemCommand* SystemCommand::instance = nullptr;
 TemperatureTask* SystemCommand::tempTask = nullptr;
 WasteTask* SystemCommand::wasteTask = nullptr;
 Door* SystemCommand::door = nullptr;
+Light* SystemCommand::led1 = nullptr;
+Light* SystemCommand::led2 = nullptr;
+double SystemCommand::maxDist;
+double SystemCommand::minDist;
 
 SystemCommand::SystemCommand() {}
 
@@ -14,67 +18,69 @@ void SystemCommand::init(TemperatureTask* tempTask, WasteTask* WasteTask,
                          double minDist) {
     if (instance == nullptr) {
         instance = new SystemCommand();
-        instance->tempTask = tempTask;
-        instance->wasteTask = wasteTask;
-        instance->door = door;
+        SystemCommand::tempTask = tempTask;
+        SystemCommand::wasteTask = wasteTask;
+        SystemCommand::door = door;
         instance->led1 = new Led(pinLed1);
-        instance->led2 = new Led(pinLed2);
-        instance->maxDist = maxDist;
-        instance->minDist = minDist;
+        SystemCommand::led2 = new Led(pinLed2);
+        SystemCommand::maxDist = maxDist;
+        SystemCommand::minDist = minDist;
     }
 }
 
 void SystemCommand::close() {
     if (instance != nullptr) {
-        instance->door->close();
+        door->close();
     }
 }
 
 void SystemCommand::open() {
     if (instance != nullptr) {
-        instance->door->open();
+        door->open();
     }
 }
 
 void SystemCommand::shutDown() {
     if (instance != nullptr) {
-        instance->door->shutDown();
+        door->shutDown();
     }
 }
 
 void SystemCommand::restore() {
     if (instance != nullptr) {
-        instance->door->externalOn();
-        instance->tempTask->restore();
+        door->externalOn();
+        tempTask->restore();
     }
 }
 
 void SystemCommand::clean() {
     if (instance != nullptr) {
-        instance->door->externalOn();
-        instance->wasteTask->clean();
+        door->externalOn();
+        wasteTask->clean();
     }
 }
 
 void SystemCommand::led1On() {
-    if (instance != nullptr) instance->led1->switchOn();
+    if (instance != nullptr) {
+        led1->switchOn();
+    }
 }
 
 void SystemCommand::led1Off() {
     if (instance != nullptr) {
-        instance->led1->switchOff();
+        led1->switchOff();
     }
 }
 
 void SystemCommand::led2On() {
     if (instance != nullptr) {
-        instance->led2->switchOn();
+        led2->switchOn();
     }
 }
 
 void SystemCommand::led2Off() {
     if (instance != nullptr) {
-        instance->led2->switchOff();
+        led2->switchOff();
     }
 }
 

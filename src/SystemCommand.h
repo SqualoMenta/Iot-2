@@ -32,7 +32,6 @@ class SystemCommand {
     static void led2On();
     static void led1Off();
     static void led2Off();
-    static void wasteLevel();
     static float temperature();
     static int fullness();
 };
