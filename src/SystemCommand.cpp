@@ -56,21 +56,41 @@ void SystemCommand::clean() {
     }
 }
 
-void SystemCommand::led1On() { instance->led1->switchOn(); }
+void SystemCommand::led1On() {
+    if (instance != nullptr) instance->led1->switchOn();
+}
 
-void SystemCommand::led1Off() { instance->led1->switchOff(); }
+void SystemCommand::led1Off() {
+    if (instance != nullptr) {
+        instance->led1->switchOff();
+    }
+}
 
-void SystemCommand::led2On() { instance->led2->switchOn(); }
+void SystemCommand::led2On() {
+    if (instance != nullptr) {
+        instance->led2->switchOn();
+    }
+}
 
-void SystemCommand::led2Off() { instance->led2->switchOff(); }
+void SystemCommand::led2Off() {
+    if (instance != nullptr) {
+        instance->led2->switchOff();
+    }
+}
 
-float SystemCommand::temperature() { return tempTask->temperature(); }
+float SystemCommand::temperature() {
+    if (instance != nullptr) {
+        return tempTask->temperature();
+    }
+}
 
 int SystemCommand::fullness() {
-    double distance = wasteTask->distance();
-    if (distance > maxDist) {
-        return 0;
-    } else {
-        return ((maxDist - distance) / (maxDist - minDist)) * 100;
+    if (instance != nullptr) {
+        double distance = wasteTask->distance();
+        if (distance > maxDist) {
+            return 0;
+        } else {
+            return ((maxDist - distance) / (maxDist - minDist)) * 100;
+        }
     }
 }

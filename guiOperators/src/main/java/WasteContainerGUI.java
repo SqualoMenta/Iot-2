@@ -84,7 +84,7 @@ public class WasteContainerGUI {
         wasteLevelLabel.setText("Waste Level: " + fullness);
         if (Double.parseDouble(fullness) <= 0) {
             emptyButton.setEnabled(false);
-        }else{
+        } else {
             emptyButton.setEnabled(true);
         }
         statusArea.append("Received: fullness\n");

@@ -1,5 +1,5 @@
 #ifndef __WASTETASK__
-#define __WASATETASK__
+#define __WASTETASK__
 
 #include "Task.h"
 #include "WasteSensor.h"

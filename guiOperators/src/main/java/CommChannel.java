@@ -12,7 +12,7 @@ public interface CommChannel {
 	/**
 	 * To receive a message. 
 	 * 
-	 * Blocking behaviour.
+	 * Blocking behavior.
 	 */
 	String receiveMsg() throws InterruptedException;
 
