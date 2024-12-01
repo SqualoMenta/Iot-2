@@ -1,12 +1,6 @@
 import java.util.concurrent.*;
 import jssc.*;
 
-/**
- * Comm channel implementation based on serial port.
- * 
- * @author aricci
- *
- */
 public class SerialCommChannel implements CommChannel, SerialPortEventListener {
 
     private SerialPort serialPort;
@@ -79,11 +73,8 @@ public class SerialCommChannel implements CommChannel, SerialPortEventListener {
         if (event.isRXCHAR()) {
             try {
                 String msg = serialPort.readString(event.getEventValue());
-
                 msg = msg.replaceAll("\r", "");
-
                 currentMsg.append(msg);
-
                 boolean goAhead = true;
 
                 while (goAhead) {
@@ -99,7 +90,6 @@ public class SerialCommChannel implements CommChannel, SerialPortEventListener {
                         goAhead = false;
                     }
                 }
-
             } catch (Exception ex) {
                 ex.printStackTrace();
                 System.out.println("Error in receiving string from COM-port: " + ex);

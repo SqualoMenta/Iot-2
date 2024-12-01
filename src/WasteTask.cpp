@@ -6,8 +6,8 @@
 #include "SystemCommand.h"
 #include "WasteSensorImpl.h"
 
-WasteTask::WasteTask(int pin, double minDist) {
-    this->wasteSensor = new WasteSensorImpl(pin);
+WasteTask::WasteTask(int trigger, int echo, double minDist) {
+    this->wasteSensor = new WasteSensorImpl(trigger, echo);
     this->minDist = minDist;
 }
 

@@ -2,19 +2,22 @@
 
 #include <Arduino.h>
 
-WasteSensorImpl::WasteSensorImpl(int pin) { this->pin = pin; }
+WasteSensorImpl::WasteSensorImpl(int trigger, int echo) {
+    this->trigger = trigger;
+    this->echo = echo;
+    pinMode(this->trigger, OUTPUT);
+    pinMode(this->echo, INPUT);
+}
 
 double WasteSensorImpl::newDistance() {
     long duration;
-    pinMode(this->pin, OUTPUT);
-    digitalWrite(this->pin, LOW);
+    digitalWrite(this->trigger, LOW);
     delayMicroseconds(2);
-    digitalWrite(this->pin, HIGH);
-    delayMicroseconds(5);
-    digitalWrite(this->pin, LOW);
-    pinMode(this->pin, INPUT);
+    digitalWrite(this->trigger, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(this->trigger, LOW);
 
-    duration = pulseIn(this->pin, HIGH);
+    duration = pulseIn(this->echo, HIGH);
 
     this->oldDistance = (duration * 0.034) / 2;
     // 0.034 cm/µs is the sound speed

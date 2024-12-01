@@ -6,10 +6,11 @@
 class WasteSensorImpl : public WasteSensor {
    private:
     double oldDistance = 100;
-    int pin;
+    int echo;
+    int trigger;
 
    public:
-    WasteSensorImpl(int pin);
+    WasteSensorImpl(int trigger, int echo);
     double lastDistance();
     double newDistance();  // this is the most expansive operation of the
                            // program for the call to pulseIn

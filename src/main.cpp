@@ -13,7 +13,8 @@
 const int LED1PIN = 13;
 const int LED2PIN = 12;
 const int MOTORPIN = 9;
-const int WASTESENSORPIN = 7;
+const int TRIGGERPIN = 7;
+const int ECHOPIN = 8;
 const int MOVEMENTSENSORPIN = 10;
 const int TEMPSENS = 0;
 const int OPENBUTTON = 6;
@@ -28,7 +29,7 @@ void setup() {
     Lcd::init();
     TemperatureTask temperatureTask = TemperatureTask(TEMPSENS);
     Door door = Door(MOTORPIN);
-    WasteTask waste = WasteTask(WASTESENSORPIN);
+    WasteTask waste = WasteTask(TRIGGERPIN, ECHOPIN);
     UserSensor pir = UserSensor(MOVEMENTSENSORPIN);
     ButtonTask button = ButtonTask(OPENBUTTON, CLOSEBUTTON);
     InputTask input = InputTask();

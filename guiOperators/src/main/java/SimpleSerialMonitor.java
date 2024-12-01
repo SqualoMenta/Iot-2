@@ -3,7 +3,7 @@ import javax.swing.SwingUtilities;
 public class SimpleSerialMonitor {
 
     public static void main(String[] args) throws Exception {
-        WasteContainerGUI view;
+        WasteContainerGUI view = new WasteContainerGUI();
         if (args.length != 1) {
             System.out.println("args: <CommPortName>");
             System.exit(1);
@@ -11,11 +11,13 @@ public class SimpleSerialMonitor {
             String comPortName = args[0];
             System.out.println("Start monitoring serial port " + args[0] + " at 9600 boud rate");
             SwingUtilities.invokeAndWait(()->{
-                view = WasteContainerGUI();
+                view.initGUI();
             });
-            WasteContainerGUI monitor = new WasteContainerGUI();
-            CommChannel monitor1 = new SerialCommChannel(comPortName, 9600);
-            new WasteContainerGUI(monitor);
+            WasteContainerController controller = new WasteContainerController(comPortName, view);
+            view.addController(controller);
+            SwingUtilities.invokeLater(() -> {
+                view.setVisible(true);
+            });
         }
     }
 }

@@ -5,11 +5,9 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.SwingUtilities;
 
 public class WasteContainerGUI {
     private JFrame frame;
@@ -17,17 +15,14 @@ public class WasteContainerGUI {
     private JLabel temperatureLabel;
     private JTextArea statusArea;
     private WasteContainerController controller;
+    private JButton restoreButton;
+    private JButton emptyButton;
 
-    public WasteContainerGUI() {
-        initGUI();
-        startDataListener();
-    }
-
-    public void addController(WasteContainerController controller){
+    public void addController(WasteContainerController controller) {
         this.controller = controller;
     }
 
-    private void initGUI() {
+    public void initGUI() {
         frame = new JFrame("Waste Container Monitor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
@@ -55,56 +50,52 @@ public class WasteContainerGUI {
         buttonPanel.add(emptyButton);
         buttonPanel.add(restoreButton);
         frame.add(buttonPanel, BorderLayout.SOUTH);
+        restoreButton.setEnabled(false);
 
         // Button actions
-        emptyButton.addActionListener(e -> sendCommand("EMPTY"));
-        restoreButton.addActionListener(e -> sendCommand("RESTORE"));
+        emptyButton.addActionListener(_ -> clickClean());
+        restoreButton.addActionListener(_ -> clickRestore());
 
-        frame.setVisible(true);
-    }
-
-    private void sendCommand(String command) {
-        try {
-            controller.sendMsg(command);
-            statusArea.append("Sent command: " + command + "\n");
-        } catch (Exception ex) {
-            statusArea.append("Error sending command: " + ex.getMessage() + "\n");
-        }
-    }
-
-    private void startDataListener() {
-        new Thread(() -> {
-            while (true) {
-                try {
-                    if (channel.isMsgAvailable()) {
-                        String msg = channel.receiveMsg();
-                        processMessage(msg);
-                    }
-                } catch (Exception ex) {
-                    statusArea.append("Error receiving data: " + ex.getMessage() + "\n");
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                if (controller != null) {
+                    controller.shutdown(); // Call shutdown on the controller
                 }
-            }
-        }).start();
-    }
-
-    private void processMessage(String msg) {
-        SwingUtilities.invokeLater(() -> {
-            statusArea.append("Received: " + msg + "\n");
-            if (msg.startsWith("LEVEL:")) {
-                wasteLevelLabel.setText("Waste Level: " + msg.substring(6));
-            } else if (msg.startsWith("TEMP:")) {
-                temperatureLabel.setText("Temperature: " + msg.substring(5));
-            } else if (msg.startsWith("ALARM")) {
-                JOptionPane.showMessageDialog(frame, "Alarm detected!", "Warning", JOptionPane.WARNING_MESSAGE);
             }
         });
     }
 
-    public Runnable setUpTemp(String temp) {
-        temperatureLabel.setText("Temperature: " + temp);
+    private void clickClean() {
+        controller.sendClean();
     }
 
-    public Runnable setUpFullness(String fullness) {
-        wasteLevelLabel.setText("Waste Level: "+ fullness);
+    private void clickRestore() {
+        controller.sendRestore();
+        restoreButton.setEnabled(false);
+    }
+
+    public void setUpTemp(String temp) {
+        temperatureLabel.setText("Temperature: " + temp);
+        statusArea.append("Received: Temperature\n");
+    }
+
+    public void setUpFullness(String fullness) {
+        wasteLevelLabel.setText("Waste Level: " + fullness);
+        if (Double.parseDouble(fullness) <= 0) {
+            emptyButton.setEnabled(false);
+        }else{
+            emptyButton.setEnabled(true);
+        }
+        statusArea.append("Received: fullness\n");
+    }
+
+    public void setVisible(boolean b) {
+        frame.setVisible(b);
+    }
+
+    public void problemTemp() {
+        statusArea.append("Received: problem\n");
+        restoreButton.setEnabled(true);
     }
 }

@@ -14,7 +14,7 @@ class WasteTask : public Task {
     bool isFull();
 
    public:
-    WasteTask(int pin, double minDist = 1);
+    WasteTask(int trigger, int echo, double minDist = 1);
     void init(int period);
     void tick();
     void clean();
