@@ -5,7 +5,7 @@
 #define WASTETIME 3000
 
 Door::Door(int pin, unsigned long T1, unsigned long T2) {
-    this->state = CLOSING;
+    this->state = CLOSED;
     this->timer1.setupPeriod(T1);
     this->timer2.setupPeriod(T2);
     this->motor = new MotorImpl(pin);
@@ -19,7 +19,7 @@ void Door::open() {
 }
 
 void Door::close() {
-    if (state == OPENING) {
+    if (state == OPENING || state == OPEN) {
         state = CLOSING;
     }
 }

@@ -19,6 +19,7 @@ void TemperatureTask::init(int period) {
 }
 
 void TemperatureTask::tick() {
+    Serial.println(temperature());
     if (state == OK) {
         if (isHot()) {
             state = HOT;
@@ -32,7 +33,7 @@ void TemperatureTask::tick() {
                 SystemCommand::led2On();
                 Lcd::free();
                 Lcd::print("PROBLEM DETECTED");
-                log.sendMsg(PROBLEM_STR);
+                prSender.sendMsg("P");
                 SystemCommand::shutDown();
             }
         } else {
@@ -42,7 +43,7 @@ void TemperatureTask::tick() {
 }
 
 float TemperatureTask::temperature() {
-    return (analogRead(pin) * (5.0 / 1024.0) - 0.5) * 100;
+    return ((analogRead(pin)/1024.0 *5.0)-0.5)*100;
 }
 
 bool TemperatureTask::isHot() { return this->temperature() > maxTemp; }

@@ -2,7 +2,7 @@
 #define __INPUTTASK__
 
 #include "Task.h"
-#include "kernel/Logger.h"
+#include "Logger.h"
 
 class InputTask : public Task {
    private:

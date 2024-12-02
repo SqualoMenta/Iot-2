@@ -1,5 +1,9 @@
 #include "Logger.h"
 
+#define OUT "OUT::"
+#define IN "IN::"
+#define IN_LENGTH 4
+
 void Logger::sendMsg(String msg) { Serial.println(OUT + msg); }
 
 void Logger::sendMsg(float temp) {
@@ -19,8 +23,8 @@ String Logger::getMsg() {
         String msg = Serial.readString();
         if (msg.startsWith(IN)) {
             return msg.endsWith("\n")
-                       ? msg.substring(IN.length(), msg.length() - 1)
-                       : msg.substring(IN.length());
+                       ? msg.substring(IN_LENGTH, msg.length() - 1)
+                       : msg.substring(IN_LENGTH);
         }
     }
 

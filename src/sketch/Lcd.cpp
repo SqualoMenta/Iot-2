@@ -51,7 +51,7 @@ void Lcd::defaultMssg() {
     if (instance != nullptr) {
         Lcd::free();
         lcd.setCursor(0, 0);
-        lcd.print("PRESS OPEN TO ENTER WASTE");
+        lcd.print("PRESS OPEN TO \nENTER WASTE");
     }
 }
 

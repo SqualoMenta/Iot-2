@@ -7,8 +7,7 @@ void timerHandler(void) { timerFlag = true; }
 
 void Scheduler::init(int basePeriod) {
     this->basePeriod = basePeriod;
-    long period = 1000l * basePeriod;
-    timer.setupPeriod(period);
+    timer.setupPeriod(basePeriod);
     nTasks = 0;
 }
 

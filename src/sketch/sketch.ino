@@ -15,8 +15,8 @@ const int LED2PIN = 12;
 const int MOTORPIN = 9;
 const int TRIGGERPIN = 7;
 const int ECHOPIN = 8;
-const int MOVEMENTSENSORPIN = 10;
-const int TEMPSENS = 0;
+const int MOVEMENTSENSORPIN = 0;
+const int TEMPSENS = A0;
 const int OPENBUTTON = 6;
 const int CLOSEBUTTON = 5;
 const int HUMANREFLEX = 160;
@@ -61,7 +61,7 @@ void setup() {
     sched.addTask(&input);
 
     SystemCommand::led1On();
-    SystemCommand::led1Off();
+    SystemCommand::led2Off();
     Lcd::defaultMssg();
 }
 

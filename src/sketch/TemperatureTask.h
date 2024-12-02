@@ -2,16 +2,16 @@
 #define __TEMPERATURETASK__
 
 #include "Task.h"
-#include "kernel/Logger.h"
+#include "Logger.h"
 #include "Timer.h"
 
 class TemperatureTask : public Task {
    private:
     int pin;
     float maxTemp;
-    const String PROBLEM_STR = "P";
+    const float BETA = 3950;
     Timer timer;
-    Logger log;
+    Logger prSender;
 
     enum { OK, HOT, PROBLEM } state;
 

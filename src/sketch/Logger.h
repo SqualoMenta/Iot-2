@@ -4,10 +4,6 @@
 #include <Arduino.h>
 
 class Logger {
-   private:
-    const String OUT = "OUT::";
-    const String IN = "IN::";
-
    public:
     void sendMsg(String msg);
     void sendMsg(float temp);

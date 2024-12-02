@@ -2,7 +2,7 @@
 #define __OUTPUTTASK__
 
 #include "Task.h"
-#include "kernel/Logger.h"
+#include "Logger.h"
 
 class OutputTask : public Task {
    private:

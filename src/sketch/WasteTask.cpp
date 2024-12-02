@@ -29,7 +29,7 @@ void WasteTask::tick() {
     }
 }
 
-bool WasteTask::isFull() { return this->wasteSensor->newDistance() < 1; }
+bool WasteTask::isFull() { return this->wasteSensor->newDistance() < this->minDist; }
 
 void WasteTask::clean() {
     Lcd::defaultMssg();
