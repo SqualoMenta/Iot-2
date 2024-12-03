@@ -13,14 +13,14 @@ Door::Door(int pin, unsigned long T1, unsigned long T2) {
 }
 
 void Door::open() {
-    if (state != OFF) {
+    if (state != OFF && state != CLOSING) {
         state = OPENING;
         this->timer1.resetTimer();
     }
 }
 
 void Door::close() {
-    if (state == OPENING || state == OPEN) {
+    if (state == OPEN) {
         state = CLOSING;
     }
 }
