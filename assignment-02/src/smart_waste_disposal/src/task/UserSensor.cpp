@@ -1,9 +1,9 @@
-#include "task/UserSensor.h"
+#include "include/task/UserSensor.h"
 
 #include <Arduino.h>
 #include <avr/sleep.h>
 
-#include "kernel/SystemCommand.h"
+#include "include/kernel/SystemCommand.h"
 
 UserSensor* UserSensor::instance = nullptr;
 

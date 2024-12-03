@@ -1,4 +1,4 @@
-#include "arduinoObjects/WasteSensorImpl.h"
+#include "include/arduinoObjects/WasteSensorImpl.h"
 
 #include <Arduino.h>
 

@@ -1,8 +1,8 @@
 #ifndef __WASTETASK__
 #define __WASTETASK__
 
-#include "arduinoObjects/WasteSensor.h"
-#include "task/Task.h"
+#include "include/arduinoObjects/WasteSensor.h"
+#include "include/task/Task.h"
 
 class WasteTask : public Task {
    private:

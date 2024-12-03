@@ -1,6 +1,6 @@
-#include "kernel/SystemCommand.h"
+#include "include/kernel/SystemCommand.h"
 
-#include "arduinoObjects/Led.h"
+#include "include/include/arduinoObjects/Led.h"
 
 SystemCommand* SystemCommand::instance = nullptr;
 TemperatureTask* SystemCommand::tempTask = nullptr;

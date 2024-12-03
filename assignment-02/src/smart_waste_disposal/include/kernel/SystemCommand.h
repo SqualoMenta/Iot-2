@@ -1,10 +1,10 @@
 #ifndef __COMMANDSYS__
 #define __COMMANDSYS__
 
-#include "arduinoObjects/Light.h"
-#include "task/Door.h"
-#include "task/TemperatureTask.h"
-#include "task/WasteTask.h"
+#include "include/arduinoObjects/Light.h"
+#include "include/task/Door.h"
+#include "include/task/TemperatureTask.h"
+#include "include/task/WasteTask.h"
 
 class SystemCommand {
    private:

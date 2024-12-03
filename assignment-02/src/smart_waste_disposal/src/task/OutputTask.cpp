@@ -1,6 +1,6 @@
-#include "task/OutputTask.h"
+#include "include/task/OutputTask.h"
 
-#include "kernel/SystemCommand.h"
+#include "include/kernel/SystemCommand.h"
 
 void OutputTask::tick() {
     // Serial.println("ciao");

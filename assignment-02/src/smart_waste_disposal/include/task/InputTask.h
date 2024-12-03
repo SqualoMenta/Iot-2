@@ -1,8 +1,8 @@
 #ifndef __INPUTTASK__
 #define __INPUTTASK__
 
-#include "kernel/Logger.h"
-#include "task/Task.h"
+#include "include/kernel/Logger.h"
+#include "include/task/Task.h"
 
 class InputTask : public Task {
    private:

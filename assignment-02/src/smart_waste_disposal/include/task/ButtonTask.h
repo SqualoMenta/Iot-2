@@ -1,9 +1,9 @@
 #ifndef __BUTTONTASK__
 #define __BUTTONTASK__
 
-#include "arduinoObjects/Button.h"
-#include "kernel/SystemCommand.h"
-#include "task/Task.h"
+#include "include/arduinoObjects/Button.h"
+#include "include/kernel/SystemCommand.h"
+#include "include/task/Task.h"
 
 class ButtonTask : public Task {
    private:

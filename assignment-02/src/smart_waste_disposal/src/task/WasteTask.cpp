@@ -1,8 +1,8 @@
-#include "task/WasteTask.h"
+#include "include/task/WasteTask.h"
 
-#include "arduinoObjects/Lcd.h"
-#include "arduinoObjects/WasteSensorImpl.h"
-#include "kernel/SystemCommand.h"
+#include "include/arduinoObjects/Lcd.h"
+#include "include/arduinoObjects/WasteSensorImpl.h"
+#include "include/kernel/SystemCommand.h"
 
 WasteTask::WasteTask(int trigger, int echo, double minDist) {
     this->wasteSensor = new WasteSensorImpl(trigger, echo);
