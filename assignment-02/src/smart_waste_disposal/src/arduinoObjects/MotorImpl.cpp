@@ -1,4 +1,4 @@
-#include "arduinoObjects/MotorImpl.h"
+#include "include/arduinoObjects/MotorImpl.h"
 
 MotorImpl::MotorImpl(int pin) {
     this->motor.attach(pin);

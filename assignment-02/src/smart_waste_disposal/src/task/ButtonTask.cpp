@@ -1,6 +1,6 @@
-#include "task/ButtonTask.h"
+#include "include/task/ButtonTask.h"
 
-#include "arduinoObjects/ButtonImpl.h"
+#include "include/arduinoObjects/ButtonImpl.h"
 
 ButtonTask::ButtonTask(int openButtonPin, int closeButtonPin) {
     this->openButton = new ButtonImpl(openButtonPin);

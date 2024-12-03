@@ -1,8 +1,8 @@
-#include "task/TemperatureTask.h"
+#include "include/task/TemperatureTask.h"
 
-#include "arduinoObjects/Lcd.h"
-#include "arduinoObjects/Light.h"
-#include "kernel/SystemCommand.h"
+#include "include/arduinoObjects/Lcd.h"
+#include "include/arduinoObjects/Light.h"
+#include "include/kernel/SystemCommand.h"
 
 TemperatureTask::TemperatureTask(int pin, float maxTemp,
                                  unsigned long maxTempTime) {
@@ -32,7 +32,7 @@ void TemperatureTask::tick() {
                 Lcd::free();
                 Lcd::print("PROBLEM DETECTED");
                 prSender.sendMsg("P");
-                SystemCommand::shutDown();
+                SystemCommand::tempShutDown();
             }
         } else {
             state = OK;

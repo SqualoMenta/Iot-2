@@ -1,7 +1,7 @@
 #ifndef __WASTESENSIMPL__
 #define __WASTESENSIMPL__
 
-#include "arduinoObjects/WasteSensor.h"
+#include "include/arduinoObjects/WasteSensor.h"
 
 class WasteSensorImpl : public WasteSensor {
    private:

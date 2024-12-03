@@ -1,8 +1,8 @@
 #ifndef __USERTASK__
 #define __USERTASK__
 
-#include "kernel/Timer.h"
-#include "task/Task.h"
+#include "include/kernel/Timer.h"
+#include "include/task/Task.h"
 
 class UserSensor : public Task {
    private:

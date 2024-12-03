@@ -1,10 +1,10 @@
 #ifndef __COMMANDSYS__
 #define __COMMANDSYS__
 
-#include "arduinoObjects/Light.h"
-#include "task/Door.h"
-#include "task/TemperatureTask.h"
-#include "task/WasteTask.h"
+#include "include/arduinoObjects/Light.h"
+#include "include/task/Door.h"
+#include "include/task/TemperatureTask.h"
+#include "include/task/WasteTask.h"
 
 class SystemCommand {
    private:
@@ -16,6 +16,8 @@ class SystemCommand {
     static SystemCommand *instance;
     static double maxDist;
     static double minDist;
+    static bool tempProb;
+    static bool full;
 
     SystemCommand();
 
@@ -25,7 +27,8 @@ class SystemCommand {
                      double minDist = 6);
     static void close();
     static void open();
-    static void shutDown();
+    static void wasteShutDown();
+    static void tempShutDown();
     static void restore();
     static void clean();
     static void led1On();

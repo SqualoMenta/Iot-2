@@ -1,7 +1,7 @@
-#include "task/Door.h"
+#include "include/task/Door.h"
 
-#include "arduinoObjects/Lcd.h"
-#include "arduinoObjects/MotorImpl.h"
+#include "include/arduinoObjects/Lcd.h"
+#include "include/arduinoObjects/MotorImpl.h"
 
 #define WASTETIME 3000
 

@@ -3,7 +3,7 @@
 
 #include <LiquidCrystal_I2C.h>
 
-#include "kernel/Timer.h"
+#include "include/kernel/Timer.h"
 
 class Lcd {
    private:

@@ -1,14 +1,14 @@
 #include <Arduino.h>
 
-#include "arduinoObjects/Lcd.h"
-#include "kernel/Scheduler.h"
-#include "kernel/SystemCommand.h"
-#include "task/ButtonTask.h"
-#include "task/Door.h"
-#include "task/InputTask.h"
-#include "task/OutputTask.h"
-#include "task/TemperatureTask.h"
-#include "task/UserSensor.h"
+#include "include/arduinoObjects/Lcd.h"
+#include "include/kernel/Scheduler.h"
+#include "include/kernel/SystemCommand.h"
+#include "include/task/ButtonTask.h"
+#include "include/task/Door.h"
+#include "include/task/InputTask.h"
+#include "include/task/OutputTask.h"
+#include "include/task/TemperatureTask.h"
+#include "include/task/UserSensor.h"
 
 const int LED1PIN = 13;
 const int LED2PIN = 12;

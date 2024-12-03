@@ -1,9 +1,9 @@
 #ifndef __DOORTASK__
 #define __DOORTASK__
 
-#include "arduinoObjects/Motor.h"
-#include "kernel/Timer.h"
-#include "task/Task.h"
+#include "include/arduinoObjects/Motor.h"
+#include "include/kernel/Timer.h"
+#include "include/task/Task.h"
 
 class Door : public Task {
    private:

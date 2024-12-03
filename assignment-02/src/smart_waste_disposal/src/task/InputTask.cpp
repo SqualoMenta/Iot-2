@@ -1,6 +1,6 @@
-#include "task/InputTask.h"
+#include "include/task/InputTask.h"
 
-#include "kernel/SystemCommand.h"
+#include "include/kernel/SystemCommand.h"
 
 void InputTask::tick() {
     input = log.getMsg();

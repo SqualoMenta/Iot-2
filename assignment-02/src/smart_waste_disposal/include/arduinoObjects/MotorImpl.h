@@ -3,7 +3,7 @@
 
 #include <Servo.h>
 
-#include "arduinoObjects/Motor.h"
+#include "include/arduinoObjects/Motor.h"
 
 class MotorImpl : public Motor {
    private:

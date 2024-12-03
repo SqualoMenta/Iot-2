@@ -1,9 +1,9 @@
 #ifndef __TEMPERATURETASK__
 #define __TEMPERATURETASK__
 
-#include "kernel/Logger.h"
-#include "kernel/Timer.h"
-#include "task/Task.h"
+#include "include/kernel/Logger.h"
+#include "include/kernel/Timer.h"
+#include "include/task/Task.h"
 
 class TemperatureTask : public Task {
    private:
