@@ -22,7 +22,7 @@ class SystemCommand {
    public:
     static void init(TemperatureTask *tempTask, WasteTask *WasteTask,
                      Door *door, int pinLed1, int pinLed2, double maxDist = 10,
-                     double minDist = 1);
+                     double minDist = 6);
     static void close();
     static void open();
     static void shutDown();

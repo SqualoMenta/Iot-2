@@ -18,6 +18,7 @@ void WasteTask::init(int period) {
 
 void WasteTask::tick() {
     if (state == NOTFULL) {
+      //Serial.println(distance());
         if (isFull()) {
             state = FULL;
             SystemCommand::led1Off();
@@ -32,6 +33,8 @@ void WasteTask::tick() {
 bool WasteTask::isFull() { return this->wasteSensor->newDistance() < this->minDist; }
 
 void WasteTask::clean() {
+            SystemCommand::led1On();
+            SystemCommand::led2Off();
     Lcd::defaultMssg();
     state = NOTFULL;
 }

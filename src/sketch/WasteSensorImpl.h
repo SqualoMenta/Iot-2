@@ -5,7 +5,7 @@
 
 class WasteSensorImpl : public WasteSensor {
    private:
-    double oldDistance = 100;
+    double oldDistance = 20;
     int echo;
     int trigger;
 

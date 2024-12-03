@@ -18,8 +18,8 @@ class TemperatureTask : public Task {
     bool isHot();
 
    public:
-    TemperatureTask(int pin, float maxTemp = 36,
-                    unsigned long maxTempTime = 10000);
+    TemperatureTask(int pin, float maxTemp = 24,
+                    unsigned long maxTempTime = 5000);
     void init(int period);
     void tick();
     float temperature();

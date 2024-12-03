@@ -15,7 +15,7 @@ const int LED2PIN = 12;
 const int MOTORPIN = 9;
 const int TRIGGERPIN = 7;
 const int ECHOPIN = 8;
-const int MOVEMENTSENSORPIN = 0;
+const int MOVEMENTSENSORPIN = 3;
 const int TEMPSENS = A0;
 const int OPENBUTTON = 6;
 const int CLOSEBUTTON = 5;
@@ -25,7 +25,7 @@ Scheduler sched;
 
 void setup() {
     Serial.begin(9600);
-    Serial.setTimeout(20);
+    Serial.setTimeout(10);
     Lcd::init();
     TemperatureTask temperatureTask = TemperatureTask(TEMPSENS);
     Door door = Door(MOTORPIN);
@@ -46,7 +46,7 @@ void setup() {
     // glass with a diameter of 6 cm with a fountain you need about 0.3 seconds
     waste.init(200);
 
-    pir.init(HUMANREFLEX);
+    pir.init(40);
     button.init(HUMANREFLEX);
 
     sched = Scheduler();
@@ -58,11 +58,12 @@ void setup() {
     sched.addTask(&temperatureTask);
     sched.addTask(&waste);
     sched.addTask(&output);
-    sched.addTask(&input);
+    //sched.addTask(&input);
 
     SystemCommand::led1On();
     SystemCommand::led2Off();
     Lcd::defaultMssg();
+    //delay(500);
 }
 
 void loop() { sched.schedule(); }

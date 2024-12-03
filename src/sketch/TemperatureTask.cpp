@@ -19,7 +19,7 @@ void TemperatureTask::init(int period) {
 }
 
 void TemperatureTask::tick() {
-    Serial.println(temperature());
+    //Serial.println(temperature());
     if (state == OK) {
         if (isHot()) {
             state = HOT;
@@ -49,6 +49,8 @@ float TemperatureTask::temperature() {
 bool TemperatureTask::isHot() { return this->temperature() > maxTemp; }
 
 void TemperatureTask::restore() {
+    SystemCommand::led1On();
+    SystemCommand::led2Off();
     Lcd::defaultMssg();
     state = OK;
 }

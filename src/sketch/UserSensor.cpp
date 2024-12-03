@@ -25,12 +25,14 @@ void UserSensor::tick() {
     switch (state) {
         case ACTIVE:
             if (isFar()) {
+              //Serial.println("Far");
                 this->timer.resetTimer();
                 state = FAR;
             }
             break;
 
         case AFK:
+        //Serial.println("Sleep");
             set_sleep_mode(SLEEP_MODE_PWR_DOWN);
             sleep_enable();
             sleep_mode();
@@ -43,8 +45,6 @@ void UserSensor::tick() {
             if (isFar()) {
                 if (this->timer.isPeriodPassed()) {
                     state = AFK;
-                    SystemCommand::led1Off();
-                    SystemCommand::led2Off();
                 }
             } else {
                 state = ACTIVE;
@@ -58,7 +58,5 @@ bool UserSensor::isFar() { return digitalRead(output) == LOW; }
 void UserSensor::onInterrupt() {
     if (digitalRead(instance->output) == HIGH) {
         instance->state = ACTIVE;
-        SystemCommand::led1On();
-        SystemCommand::led2Off();
     }
 }

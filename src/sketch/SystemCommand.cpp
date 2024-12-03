@@ -21,7 +21,7 @@ void SystemCommand::init(TemperatureTask* tempTask, WasteTask* WasteTask,
         SystemCommand::tempTask = tempTask;
         SystemCommand::wasteTask = wasteTask;
         SystemCommand::door = door;
-        instance->led1 = new Led(pinLed1);
+        SystemCommand::led1 = new Led(pinLed1);
         SystemCommand::led2 = new Led(pinLed2);
         SystemCommand::maxDist = maxDist;
         SystemCommand::minDist = minDist;
@@ -30,6 +30,7 @@ void SystemCommand::init(TemperatureTask* tempTask, WasteTask* WasteTask,
 
 void SystemCommand::close() {
     if (instance != nullptr) {
+      //Serial.println("here");
         door->close();
     }
 }
@@ -93,6 +94,7 @@ float SystemCommand::temperature() {
 int SystemCommand::fullness() {
     if (instance != nullptr) {
         double distance = wasteTask->distance();
+        Serial.println(distance);
         if (distance > maxDist) {
             return 0;
         } else {

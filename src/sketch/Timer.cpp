@@ -12,6 +12,7 @@ void Timer::waitForNextTick() {
     /* wait for timer signal */
     delay(deltaOrZero() * 0.95);
     while (millis() - this->t0 < this->period);
+    resetTimer();
 }
 
 bool Timer::isPeriodPassed() { return millis() - this->t0 > this->period; }

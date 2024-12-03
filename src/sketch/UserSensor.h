@@ -15,7 +15,7 @@ class UserSensor : public Task {
     bool isFar();
 
    public:
-    UserSensor(int output, float tSleep = 10000);
+    UserSensor(int output, float tSleep = 100000);
     void init(int period);
     void tick();
 };

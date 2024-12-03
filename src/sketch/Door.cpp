@@ -2,6 +2,8 @@
 #include "Lcd.h"
 #include "MotorImpl.h"
 
+#include "Arduino.h"
+
 #define WASTETIME 3000
 
 Door::Door(int pin, unsigned long T1, unsigned long T2) {
@@ -30,6 +32,8 @@ void Door::shutDown() {
 }
 
 void Door::tick() {
+  //static int i;
+  //Serial.println(i++);
     switch (state) {
         case OPENING:
             motor->open();
@@ -39,6 +43,7 @@ void Door::tick() {
 
         case OPEN:
             if (this->timer1.isPeriodPassed()){
+              Serial.print("Yep");
                 state = CLOSING;
             }
             break;
