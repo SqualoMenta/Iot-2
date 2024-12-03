@@ -1,4 +1,6 @@
 plugins {
+    java
+    application
     id("java")
 }
 
@@ -17,4 +19,8 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+application{
+    mainClass.set("SimpleSerialMonitor.java")
 }

@@ -53,8 +53,8 @@ public class WasteContainerGUI {
         restoreButton.setEnabled(false);
 
         // Button actions
-        emptyButton.addActionListener(_ -> clickClean());
-        restoreButton.addActionListener(_ -> clickRestore());
+        emptyButton.addActionListener(e -> clickClean());
+        restoreButton.addActionListener(e -> clickRestore());
 
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override

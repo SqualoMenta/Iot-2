@@ -5,7 +5,7 @@
 void InputTask::tick() {
     input = log.getMsg();
     if (input == "CLEAN") {
-      Serial.println("here");
+      //Serial.println("here");
         SystemCommand::clean();
     }
     if (input == "RESTORE") {

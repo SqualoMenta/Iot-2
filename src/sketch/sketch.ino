@@ -58,7 +58,7 @@ void setup() {
     sched.addTask(&temperatureTask);
     sched.addTask(&waste);
     sched.addTask(&output);
-    //sched.addTask(&input);
+    sched.addTask(&input);
 
     SystemCommand::led1On();
     SystemCommand::led2Off();

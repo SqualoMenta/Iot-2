@@ -16,9 +16,8 @@ void WasteTask::init(int period) {
     state = NOTFULL;
 }
 
-void WasteTask::tick() {
+void WasteTask::tick() {//Serial.println(distance());
     if (state == NOTFULL) {
-      //Serial.println(distance());
         if (isFull()) {
             state = FULL;
             SystemCommand::led1Off();
