@@ -32,7 +32,7 @@ void TemperatureTask::tick() {
                 Lcd::free();
                 Lcd::print("PROBLEM DETECTED");
                 prSender.sendMsg("P");
-                SystemCommand::shutDown();
+                SystemCommand::tempShutDown();
             }
         } else {
             state = OK;

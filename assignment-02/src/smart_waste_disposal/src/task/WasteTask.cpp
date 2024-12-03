@@ -22,7 +22,7 @@ void WasteTask::tick() {  // Serial.println(distance());
             SystemCommand::led2On();
             Lcd::free();
             Lcd::print("CONTAINER FULL");
-            SystemCommand::shutDown();
+            SystemCommand::wasteShutDown();
         }
     }
 }

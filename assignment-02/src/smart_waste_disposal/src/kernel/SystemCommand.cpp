@@ -10,6 +10,8 @@ Light* SystemCommand::led1 = nullptr;
 Light* SystemCommand::led2 = nullptr;
 double SystemCommand::maxDist;
 double SystemCommand::minDist;
+bool SystemCommand::full = false;
+bool SystemCommand::tempProb = false;
 
 SystemCommand::SystemCommand() {}
 
@@ -41,22 +43,36 @@ void SystemCommand::open() {
     }
 }
 
-void SystemCommand::shutDown() {
+void SystemCommand::tempShutDown() {
     if (instance != nullptr) {
+        tempProb = true;
+        door->shutDown();
+    }
+}
+
+void SystemCommand::wasteShutDown() {
+    if (instance != nullptr) {
+        full = true;
         door->shutDown();
     }
 }
 
 void SystemCommand::restore() {
     if (instance != nullptr) {
-        door->externalOn();
+        tempProb = false;
+        if (!full) {
+            door->externalOn();
+        }
         tempTask->restore();
     }
 }
 
 void SystemCommand::clean() {
     if (instance != nullptr) {
-        door->externalOn();
+        full = false;
+        if (!tempProb) {
+            door->externalOn();
+        }
         wasteTask->clean();
     }
 }
